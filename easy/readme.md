@@ -193,6 +193,21 @@ class Solution {
 }
 ```
 
+[461. Hamming Distance](https://leetcode.com/problems/hamming-distance/)
+```java
+class Solution {
+    public int hammingDistance(int x, int y) {
+        int r = x ^ y;
+        int count = 0;
+        while (r > 0){
+            r &= r - 1;
+            count++;
+        }
+        return count;
+    }
+}
+```
+
 [709. To Lower Case](https://leetcode.com/problems/to-lower-case/)
 ```java
 class Solution {
@@ -281,7 +296,6 @@ class Solution {
     }
 }
 ```
-
 
 [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
 ```java
