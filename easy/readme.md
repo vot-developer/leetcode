@@ -266,6 +266,23 @@ class Solution {
 }
 ```
 
+[1281. Subtract the Product and Sum of Digits of an Integer](https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/)
+```java
+class Solution {
+    public int subtractProductAndSum(int n) {
+        int sum = 0, product = 1;
+        do {
+            int i = n % 10; 
+            sum += i;
+            product *= i;
+            n = n/10;
+        } while (n > 0);
+        return product - sum;
+    }
+}
+```
+
+
 [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
 ```java
 class Solution {
