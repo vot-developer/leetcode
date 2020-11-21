@@ -99,6 +99,26 @@ class Solution {
 }
 ```
 
+[98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+```java
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+
+        return validate(root.left, Long.MIN_VALUE, root.val) && validate(root.right, root.val, Long.MAX_VALUE);
+    }
+    
+    private boolean validate(TreeNode root, long min, long max){
+        if (root == null) return true;
+
+        if (root.val >= max) return false;
+        if (root.val <= min) return false;
+
+        return validate(root.right, root.val, max) && validate(root.left, min, root.val);
+    }
+}
+```
+
 [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
 ```java
 class Solution {
