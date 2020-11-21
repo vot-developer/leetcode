@@ -106,10 +106,9 @@ class Solution {
         if (root == null) return 0;
         
         int count = 0;
-        count++;
         if (root.left != null) count += countNodes(root.left);
         if (root.right != null) count += countNodes(root.right);
-        return count;
+        return ++count;
     }
 }
 ```
