@@ -99,6 +99,21 @@ class Solution {
 }
 ```
 
+[222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+```java
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) return 0;
+        
+        int count = 0;
+        count++;
+        if (root.left != null) count += countNodes(root.left);
+        if (root.right != null) count += countNodes(root.right);
+        return count;
+    }
+}
+```
+
 [384. Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/)
 ```java
 class Solution {
