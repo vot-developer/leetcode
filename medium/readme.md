@@ -119,6 +119,40 @@ class Solution {
 }
 ```
 
+[173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)
+```java
+class BSTIterator {
+    private Stack<TreeNode> stack;
+
+    public BSTIterator(TreeNode root) {
+        stack = new Stack<>();
+        if (root != null) deepLeft(root);
+    }
+    
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode current = stack.pop();
+        int result = current.val;
+
+        if (current.right != null) deepLeft(current.right);
+
+        return result;        
+    }
+    
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !stack.isEmpty();        
+    }
+    
+    private void deepLeft(TreeNode node) {
+        do {
+            stack.push(node);
+            node = node.left;
+        } while (node != null);
+    }
+}
+```
+
 [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
 ```java
 class Solution {
