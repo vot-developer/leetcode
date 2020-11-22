@@ -126,7 +126,7 @@ class BSTIterator {
 
     public BSTIterator(TreeNode root) {
         stack = new Stack<>();
-        if (root != null) deepLeft(root);
+        deepLeft(root);
     }
     
     /** @return the next smallest number */
@@ -145,10 +145,10 @@ class BSTIterator {
     }
     
     private void deepLeft(TreeNode node) {
-        do {
+        while (node != null){
             stack.push(node);
             node = node.left;
-        } while (node != null);
+        }
     }
 }
 ```
@@ -163,6 +163,32 @@ class Solution {
         if (root.left != null) count += countNodes(root.left);
         if (root.right != null) count += countNodes(root.right);
         return ++count;
+    }
+}
+```
+
+[230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+```java
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        deepLeft(root, stack);
+
+        while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+            if (--k == 0) return current.val;
+            if (current.right != null){
+                deepLeft(current.right, stack);
+            }
+        }
+        return -1;
+    }
+    
+    private void deepLeft(TreeNode node, Stack<TreeNode> stack) {
+        while (node != null){
+            stack.push(node);
+            node = node.left;
+        }
     }
 }
 ```
