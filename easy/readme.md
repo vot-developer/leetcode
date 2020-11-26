@@ -297,6 +297,29 @@ class Solution {
 }
 ```
 
+[1342. Number of Steps to Reduce a Number to Zero](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/)
+```java
+class Solution {
+    public int numberOfSteps (int num) {
+        if (num == 0) return 0;
+
+        int count = 0;
+        while (num > 0) {
+            if (num == 1) return ++count;
+
+            if ((num & 1) == 0) { // even
+                count++;
+            }
+            else {
+                count += 2; // do both divide and subtract on one shift left
+            }
+            num >>= 1;
+        }
+        return count;
+    }
+}
+```
+
 [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
 ```java
 class Solution {
