@@ -364,3 +364,49 @@ class Solution {
     }
 }
 ```
+
+[1512. Number of Good Pairs](https://leetcode.com/problems/number-of-good-pairs/)
+1st approach - space O(1), time - O(n*log n)
+```java
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+       if (nums == null || nums.length <= 1) return 0;
+
+        Arrays.sort(nums);
+        int count = 0;
+
+        for (int i = 1; i < nums.length; i++){
+            if (nums[i - 1] == nums[i]){
+                int number = 1;
+                while (i < nums.length && nums[i] == nums[i - 1]){
+                    number++; i++;
+                }
+                i--;
+                count += sum(number);
+            }
+        }
+        return count;
+    }
+    
+    private int sum(int i){
+        if (i <= 1) return 0;
+        return (i - 1) + sum(i - 1);
+    }
+}
+```
+2nd approach - space O(n), time - O(n)
+```java
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        if (nums == null || nums.length <= 1) return 0;
+
+        int[] aux = new int[101];
+
+        int count = 0;
+        for (int i : nums) {
+            count += aux[i]++;
+        }
+        return count;
+    }    
+}
+```
