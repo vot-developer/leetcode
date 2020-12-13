@@ -240,6 +240,32 @@ public static int numJewelsInStones(String J, String S) {
 }
 ```
 
+[797. All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
+```java
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>(); //we will change symbols here to reach results
+        path.add(0); //first symbol
+        dfs(graph, 0, path, result);
+        return result;
+    }
+    
+    private void dfs(int[][] graph, int n, List<Integer> path, List<List<Integer>> result){
+        if (n == graph.length - 1){ //last symbol -> save result
+            result.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i : graph[n]){
+            path.add(i); //add n-th symbol
+            dfs(graph, i, path, result);
+            path.remove(path.size() - 1); //remove n-th symbol for continue with next i 
+        }
+    }
+}
+```
+
 [938. Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)
 ```java
 class Solution {
