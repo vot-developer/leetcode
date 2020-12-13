@@ -243,7 +243,7 @@ public static int numJewelsInStones(String J, String S) {
 [797. All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
 ```java
 /*
-        time - O(E)
+        time - O(2^N)
         space - O(N)
  */
 class Solution {
