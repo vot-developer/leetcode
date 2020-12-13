@@ -242,6 +242,10 @@ public static int numJewelsInStones(String J, String S) {
 
 [797. All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
 ```java
+/*
+        time - O(E)
+        space - O(N)
+ */
 class Solution {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
         List<List<Integer>> result = new ArrayList<>();
