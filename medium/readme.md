@@ -378,3 +378,22 @@ class Solution {
     }
 }
 ```
+
+[1313. Decompress Run-Length Encoded List](https://leetcode.com/problems/decompress-run-length-encoded-list/)
+```java
+//time - O(n)
+class Solution {
+    public int[] decompressRLElist(int[] nums) {
+        int count = 0;
+        for (int i = 0; i < nums.length; i += 2)
+            count += nums[i];
+        int[] r = new int[count];
+
+        for (int i = 1, k = 0; i < nums.length; i += 2) {
+            Arrays.fill(r, k, k + nums[i - 1], nums[i]);
+            k += nums[i - 1];
+        }
+        return r;
+    }
+}
+```

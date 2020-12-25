@@ -311,6 +311,25 @@ class Solution {
 }
 ```
 
+[1221. Split a String in Balanced Strings](https://leetcode.com/problems/split-a-string-in-balanced-strings/)
+```java
+class Solution {
+    public int balancedStringSplit(String s) {
+        int count = 0, balance = 0;
+        for (int i = 0; i < s.length(); i++) {
+            balance += count(s.charAt(i));
+            if (balance == 0)
+                count++;
+        }
+        return count;
+    }
+    
+    private int count(char c) {
+        return c == 'R' ? 1 : -1;
+    }
+}
+```
+
 [1281. Subtract the Product and Sum of Digits of an Integer](https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/)
 ```java
 class Solution {
