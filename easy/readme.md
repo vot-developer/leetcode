@@ -369,6 +369,26 @@ class Solution {
 }
 ```
 
+[1365. How Many Numbers Are Smaller Than the Current Number](https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/)
+```java
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] count = new int[102];
+        for (int v : nums) {
+            count[v + 1]++;
+        }
+
+        for (int i = 1; i < count.length; i++)
+            count[i] += count[i - 1];
+
+        for (int i = 0; i < nums.length; i++)
+            nums[i] = count[nums[i]];
+
+        return nums;
+    }
+}
+```
+
 [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
 ```java
 class Solution {
