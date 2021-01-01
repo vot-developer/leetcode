@@ -240,6 +240,83 @@ public static int numJewelsInStones(String J, String S) {
 }
 ```
 
+[796. Rotate String](https://leetcode.com/problems/rotate-string/)
+1) time - O(n^2), space - O(n)
+```java
+class Solution {
+    public boolean rotateString(String A, String B) {
+        if (A.length() != B.length()) return false;
+        if (A.length() == 0) return true;
+        if (A.equals(B)) return true;
+
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) == B.charAt(0)) {
+                String rotatedA = createRotate(A, i);
+                if (rotatedA.equals(B)) return true;
+            }
+        }
+        return false;
+    }
+    
+    private String createRotate(String a, int i) {
+        char[] r = new char[a.length()];
+        System.arraycopy(a.toCharArray(), i, r, 0, a.length() - i);
+        System.arraycopy(a.toCharArray(), 0, r, a.length() - i, i);
+        return new String(r);
+    }
+}
+```
+2) Knuth-Morris-Pratt
+time - O(n) (preparation - O(n*R)), space - O(n*R)
+```java
+class Solution {
+    public boolean rotateString(String A, String B) {
+        if (A.length() != B.length()) return false;
+        if (A.length() == 0) return true;
+        if (A.equals(B)) return true;
+
+        KMP kmp = new KMP(A);
+        return kmp.search(B + B) >= 0;
+    }
+    
+static class KMP {
+    private static final int R = 26;
+    private final String pattern;
+    private final int[][] states;
+
+    public KMP(String pattern) {
+        this.pattern = pattern;
+        this.states = new int[R][pattern.length()]; //Do only for lowercase english alphabet letters
+
+        states[index(pattern.charAt(0))][0] = 1;
+        int x = 0;
+        for (char i = 1; i < pattern.length(); i++) {
+            for (int j = 0; j < R; j++)
+                states[j][i] = states[j][x];
+            states[index(pattern.charAt(i))][i] = i + 1;
+            x = states[index(pattern.charAt(i))][x];
+        }
+    }
+
+    public int search(String s){
+        int j = 0;
+        for (int i = 0; i < s.length(); i++){
+            j = states[index(s.charAt(i))][j];
+            if (j == pattern.length())
+                return i - pattern.length() + 1;
+        }
+        return -1;
+    }
+
+    private int index(char c) {
+        if (c < 97 || c > 122) throw new IllegalArgumentException("support only lowercase english alphabet letters");
+        return c - 97;
+    }
+}
+}
+```  
+   
+
 [797. All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)
 ```java
 /*
