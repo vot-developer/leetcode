@@ -69,6 +69,31 @@ class Solution {
 }
 ```
 
+[46. Permutations](https://leetcode.com/problems/permutations/)
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        doPermute(nums, 0, new ArrayList<>(), result);
+        return result;
+    }
+    
+    private void doPermute(int[] nums,  int start, List<Integer> permutation,
+                                  List<List<Integer>>  permutations){
+        if (permutation.size() == nums.length) {
+            permutations.add(permutation);
+            return;
+        }
+
+        for (int i = 0; i <= permutation.size(); i++) {
+            List<Integer> newPermutation = new ArrayList<>(permutation);
+            newPermutation.add(i, nums[start]);
+            doPermute(nums, start + 1, newPermutation, permutations);
+        }
+    }
+}
+```
+
 [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 ```java
 class Solution {
