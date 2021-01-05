@@ -78,7 +78,7 @@ class Solution {
         return result;
     }
     
-    private void doPermute(int[] nums,  int start, List<Integer> permutation,
+    private void doPermute(int[] nums,  int index, List<Integer> permutation,
                                   List<List<Integer>>  permutations){
         if (permutation.size() == nums.length) {
             permutations.add(permutation);
@@ -87,8 +87,8 @@ class Solution {
 
         for (int i = 0; i <= permutation.size(); i++) {
             List<Integer> newPermutation = new ArrayList<>(permutation);
-            newPermutation.add(i, nums[start]);
-            doPermute(nums, start + 1, newPermutation, permutations);
+            newPermutation.add(i, nums[index]);
+            doPermute(nums, index + 1, newPermutation, permutations);
         }
     }
 }
