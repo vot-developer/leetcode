@@ -124,6 +124,47 @@ class Solution {
 }
 ```
 
+[94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+```java
+//time - O(n), space - O(n)
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        doIterate(root, result);
+        return result;
+    }
+    
+    private void doIterate(TreeNode node, List<Integer> result){
+        if (node == null) return;
+
+        doIterate(node.left, result);
+        result.add(node.val);
+        doIterate(node.right, result);
+    }
+}
+```
+```java
+//non-recursive
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode current = root;
+        while(current != null || !stack.isEmpty()){
+            while (current != null){
+                stack.addFirst(current);
+                current = current.left;
+            }
+            current = stack.removeFirst();
+            result.add(current.val);
+            current = current.right;
+        }
+        return result;
+    }
+}
+```
+//use Morris method for space - O(1) (rewrite linking of nodes and on iterator - move it back)
+
 [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 ```java
 class Solution {
