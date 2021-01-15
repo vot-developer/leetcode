@@ -208,6 +208,31 @@ class Solution {
 }
 ```
 
+[509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+```java
+//time - 0(n), space - O(n) (stack)
+class Solution {
+    public int fib(int n) {
+        if (n < 2)
+            return n;
+        
+        int[] memoize = new int[n - 1];
+        return doF(n, memoize);
+    }
+    
+    private int doF(int n, int[] memorize){
+        if (n < 2)
+            return n;
+
+        if (memorize[n - 2] != 0)
+            return memorize[n - 2];
+
+        memorize[n - 2] = doF(n - 1, memorize) + doF(n - 2, memorize);
+        return memorize[n - 2];
+    }
+}
+```
+
 [709. To Lower Case](https://leetcode.com/problems/to-lower-case/)
 ```java
 class Solution {
