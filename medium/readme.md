@@ -294,6 +294,42 @@ class Solution {
 }
 ```
 
+[416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+````java
+//time - O(n * S), space - O(n * S)
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = Arrays.stream(nums).sum();
+        if ((sum & 1) != 0)
+            return false;
+
+        int sumForFind = sum / 2;
+        Boolean[][] aux = new Boolean[nums.length][sumForFind + 1];
+        return doToToDown(nums, 0, sumForFind, aux);    
+    }
+    
+    private boolean doToToDown(int[] nums, int index, int sum, Boolean[][] aux){
+        if (sum == 0)
+            return true;
+
+        if (index == nums.length)
+            return false;
+
+        if (aux[index][sum] != null)
+            return aux[index][sum];
+
+        if (nums[index] <= sum)
+            if (doToToDown(nums, index + 1, sum - nums[index], aux)){ //add something
+                aux[index][sum] = true;
+                return true;
+            }
+
+        aux[index][sum] = doToToDown(nums, index + 1, sum, aux); //add nothing
+        return aux[index][sum];
+    }
+}
+````
+
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
 class MyCircularDeque {
