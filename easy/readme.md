@@ -372,6 +372,88 @@ class Solution {
 }
 ```
 
+[804. Unique Morse Code Words](https://leetcode.com/problems/unique-morse-code-words/)
+```java
+//time - O(n), space - O(uniq words)
+class Solution {
+    public int uniqueMorseRepresentations(String[] words) {
+        String[] codes = new String[]{".-","-...","-.-.","-..",".","..-.","--.",
+                         "....","..",".---","-.-",".-..","--","-.",
+                         "---",".--.","--.-",".-.","...","-","..-",
+                         "...-",".--","-..-","-.--","--.."};
+
+        Set<String> result = new HashSet();
+        for (String word: words) {
+            StringBuilder code = new StringBuilder();
+            for (char c: word.toCharArray())
+                code.append(codes[c - 'a']);
+            result.add(code.toString());
+        }
+
+        return result.size();
+    }
+}
+```
+```java
+//time - O(n), space - O(all words + links)
+class Solution {
+    private String[] codes = new String[]{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+
+    public int uniqueMorseRepresentations(String[] words) {
+        int count = 0;
+        Trie trie = new Trie();
+        for (String s : words)
+            if (trie.add(s))
+                count++;
+        return count;
+    }
+
+    private class Trie {
+        Node root = new Node();
+
+        /*
+        Return true if word is uniq
+         */
+        boolean add(String string) {
+            Node node = root;
+            for (char c : string.toCharArray()) {
+                String code = codes[c - 'a'];
+                for (char s : code.toCharArray())
+                    node = add(node, s);
+            }
+            boolean result = false;
+            if (!node.isEnd)
+                result = true;
+            node.isEnd = true;
+            return result;
+        }
+
+        private Node add(Node root, char c) {
+            Node node;
+            if (c == '.') {
+                node = root.next[0];
+                if (node == null) {
+                    node = new Node();
+                    root.next[0] = node;
+                }
+            } else {
+                node = root.next[1];
+                if (node == null) {
+                    node = new Node();
+                    root.next[1] = node;
+                }
+            }
+            return node;
+        }
+    }
+
+    private class Node {
+        Node[] next = new Node[2];
+        boolean isEnd;
+    }
+}
+```
+
 [938. Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)
 ```java
 class Solution {
