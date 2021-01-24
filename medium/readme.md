@@ -94,6 +94,21 @@ class Solution {
 }
 ```
 
+[55. Jump Game](https://leetcode.com/problems/jump-game/)
+```java
+//time - O(n), space - O(1)
+class Solution {
+    public boolean canJump(int[] nums) {           
+        int possibleIndex = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; i--) 
+            if (i + nums[i] >= possibleIndex)
+                possibleIndex = i;
+
+        return possibleIndex == 0;
+    }
+}
+```
+
 [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 ```java
 class Solution {
