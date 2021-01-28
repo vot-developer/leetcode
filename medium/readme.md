@@ -1,5 +1,27 @@
-[15. 3Sum.](https://leetcode.com/problems/3sum/)
+[3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(n)
+    public int lengthOfLongestSubstring(String s) {        
+        int start = 0, maxLength = 0;
+        Map<Character, Integer> symbols = new HashMap<>();
 
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (symbols.containsKey(c))
+                start = Math.max(symbols.get(c) + 1, start);
+
+            symbols.put(c, end);
+            
+            maxLength = Math.max(end - start + 1, maxLength);
+        }
+
+        return maxLength;
+    }
+}
+```
+
+[15. 3Sum.](https://leetcode.com/problems/3sum/)
 ```java
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
