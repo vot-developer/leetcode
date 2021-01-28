@@ -1,3 +1,24 @@
+[53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+```java
+class Solution {
+    //time - O(n), space - O(1)
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0, max = 0;
+
+        for (int i = 0; i < k; i++)
+            sum += nums[i];
+
+        max = sum;
+
+        for (int i = k; i < nums.length; i++){
+            sum+= nums[i] - nums[i-k];
+            max = Math.max(sum, max);
+        }
+        return (max + 0.0)/k;
+    }
+}
+```
+
 [88. Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
 ```java
 class Solution {
