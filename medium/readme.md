@@ -477,7 +477,7 @@ class MyCircularDeque {
 [904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
 ```java
 class Solution {
-    //pattern - sliding window, time - O(n), space - O(K) -> O(2) -> O(1)
+    //pattern - sliding window, time - O(n), space - O(K(uniq symbols))
     public int totalFruit(int[] tree) {
         int max = Integer.MIN_VALUE;
         Map<Integer, Integer> map = new HashMap<>();
