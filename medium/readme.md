@@ -567,6 +567,44 @@ class Solution {
 }
 ```
 
+[1004. Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(1)
+    public int longestOnes(int[] A, int K) {
+        int start = 0, end = 0;
+        for (; end < A.length; end++){
+            if (A[end] == 0)
+                K--;
+
+            if (K < 0 && A[start++] == 0)
+                    K++;
+        }
+        return end - start;
+    }
+}
+```
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(1)
+    public int longestOnes(int[] A, int K) {
+        int maxLength = 0;
+        int count = 0;
+        for (int start = 0, end = 0; end < A.length; end++){
+            if (A[end] == 1)
+                count++;
+
+            if (end - start + 1 - count > K){
+                if (A[start++] == 1)
+                    count--;
+            }
+            maxLength = Math.max(end - start + 1, maxLength);
+        }
+        return maxLength;
+    }
+}
+```
+
 [1313. Decompress Run-Length Encoded List](https://leetcode.com/problems/decompress-run-length-encoded-list/)
 ```java
 //time - O(n)
