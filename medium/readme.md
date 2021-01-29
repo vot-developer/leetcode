@@ -474,6 +474,33 @@ class MyCircularDeque {
         }
     }
 ```
+[904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(K) -> O(2) -> O(1)
+    public int totalFruit(int[] tree) {
+        int max = Integer.MIN_VALUE;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int start = 0, end = 0; end < tree.length; end++){
+            int i = tree[end];
+            if (!map.containsKey(i))
+                map.put(tree[end], 1);
+            else
+                map.put(tree[end], map.get(i) + 1);
+
+            while (map.size() > 2) {
+                int j = tree[start++];
+                if (map.get(j) > 1)
+                    map.put(j, map.get(j) - 1);
+                else if (map.get(j) == 1)
+                    map.remove(j);
+            }
+            max = Math.max(end - start + 1, max);
+        }
+        return max;
+    }
+}
+```
 
 [912. Sort an Array](https://leetcode.com/problems/sort-an-array/)
 ```java
