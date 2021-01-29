@@ -367,6 +367,28 @@ class Solution {
 }
 ````
 
+[424. Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(R)
+    public int characterReplacement(String s, int k) {
+        int max = 0, maxRepeat = 0;
+        char[] counts = new char[26];
+        for (int start = 0, end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            counts[c - 'A']++;
+            maxRepeat = Math.max(counts[c - 'A'], maxRepeat) ;
+
+            if (end - start + 1 - maxRepeat > k)
+                counts[s.charAt(start++) - 'A']--;
+
+            max = Math.max(end - start + 1, max);
+        }
+        return max;
+    }
+}
+```
+
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
 class MyCircularDeque {
