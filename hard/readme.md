@@ -1,3 +1,39 @@
+[30. Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n * {words.length}), space - O({words size})
+    public List<Integer> findSubstring(String str, String[] words) {
+        int length = words[0].length();
+        List<Integer> resultIndices = new ArrayList<>();
+
+        Map<String, Integer> frequencies = new HashMap<>(words.length);
+        for (int i = 0; i < words.length; i++)
+            frequencies.put(words[i], frequencies.getOrDefault(words[i], 0) + 1);
+
+        for (int i = 0; i <= str.length() - words.length * length; i++) {
+            Map<String, Integer> wordsSeen = new HashMap<>();
+            for (int j = 0; j < words.length; j++) {
+                int nextWordIndex = i + j * length;
+
+                String word = str.substring(nextWordIndex, nextWordIndex + length);
+                if (!frequencies.containsKey(word))
+                    break;
+
+                wordsSeen.put(word, wordsSeen.getOrDefault(word, 0) + 1);
+
+                if (wordsSeen.get(word) > frequencies.getOrDefault(word, 0))
+                    break;
+
+                if (j + 1 == words.length)
+                    resultIndices.add(i);
+            }
+        }
+
+        return resultIndices;
+    }
+}
+```
+
 [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 ```java
 class Solution {
