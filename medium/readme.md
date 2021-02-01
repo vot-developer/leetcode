@@ -388,6 +388,70 @@ class Solution {
     }
 }
 ```
+[438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(R)
+    public List<Integer> findAnagrams(String str, String pattern) {
+        List<Integer> resultIndices = new ArrayList<>();
+        if (str.length() < pattern.length())
+            return resultIndices;
+
+        int[] count = new int[26];
+        for (int i = 0; i < pattern.length(); i++) {
+            count[pattern.charAt(i) - 'a']++;
+            count[str.charAt(i) - 'a']--;
+        }
+        if (isAllNull(count)) resultIndices.add(0);
+
+        for (int i = pattern.length(); i < str.length(); i++){
+            count[str.charAt(i - pattern.length()) - 'a']++;
+            count[str.charAt(i) - 'a']--;
+            if (isAllNull(count)) resultIndices.add(i - pattern.length() + 1);
+        }
+
+        return resultIndices;
+    }
+    
+     private boolean isAllNull(int[] count) {
+        for (int i = 0; i < count.length; i++)
+            if (count[i] != 0) return false;
+        return true;
+    }
+}
+```
+
+[567. Permutation in String](https://leetcode.com/problems/permutation-in-string/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n), space - O(R)
+    public boolean checkInclusion(String pattern, String str) {
+        int[] counts = new int[26];
+        if (pattern.length() > str.length()) return false;
+        
+        for (int i = 0; i < pattern.length(); i++) {
+            counts[pattern.charAt(i) - 'a']++;
+            counts[str.charAt(i) - 'a']--;
+        }
+        if (allZero(counts)) return true;
+
+        for (int i = pattern.length(); i < str.length(); i++) {
+            counts[str.charAt(i) - 'a']--;
+            counts[str.charAt(i - pattern.length()) - 'a']++;
+            if (allZero(counts)) return true;
+        }
+
+        return false;
+    }
+    
+    private boolean allZero(int[] count) {
+        for (int i = 0; i < 26; i++) {
+            if (count[i] != 0) return false;
+        }
+        return true;
+    }
+}
+```
 
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
