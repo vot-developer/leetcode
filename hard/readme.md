@@ -109,6 +109,7 @@ class MedianFinder {
 [887. Super Egg Drop](https://leetcode.com/problems/super-egg-drop/)
 ```java
 class Solution {
+    //pattern - dynamic programming (bottom to up)
     public int superEggDrop(int K, int N) {
         int[][] map = new int[N+1][K+1];
         int m = 0;
