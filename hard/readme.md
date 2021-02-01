@@ -1,3 +1,46 @@
+[76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+```java
+class Solution {
+    //pattern - sliding window, time - O(n + m), space - O(m)
+    public String minWindow(String str, String pattern) {
+        int matcher, startMatch = 0, minLength = Integer.MAX_VALUE;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < pattern.length(); i++) {
+            char c = pattern.charAt(i);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        matcher = map.size();
+
+        for (int start = 0, end = 0; end < str.length(); end++) {
+            char c = str.charAt(end);
+            if (map.containsKey(c)) {
+                map.put(c, map.getOrDefault(c, 0) - 1);
+                if (map.get(c) == 0)
+                    matcher--;
+            }
+
+            while (matcher == 0) {
+                if (end - start + 1 < minLength) {
+                    startMatch = start;
+                    minLength = end - start + 1;
+                }
+                char r = str.charAt(start++);
+                if (map.containsKey(r)) {
+                    map.put(r, map.getOrDefault(r, 0) + 1);
+                    if (map.get(r) > 0)
+                        matcher++;
+                }
+            }
+        }
+
+        if (minLength == Integer.MAX_VALUE)
+            return "";
+
+        return str.substring(startMatch, startMatch + minLength);
+    }
+}
+```
+
 [295. Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
 ```java
 //time - O(log n), space - O(n)
