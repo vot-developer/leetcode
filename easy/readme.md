@@ -580,6 +580,24 @@ class Solution {
     }
 }
 ```
+[977. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(n)
+    public int[] sortedSquares(int[] arr) {
+        int[] squares = new int[arr.length];
+        int l = 0, r = arr.length - 1, k = arr.length - 1;
+        while (k >= 0){
+            if (Math.abs(arr[l]) > Math.abs(arr[r])){
+                squares[k--] = (int) Math.pow(arr[l++], 2);
+            } else {
+                squares[k--] = (int) Math.pow(arr[r--], 2);
+            }
+        }
+        return squares;
+    }
+}
+```
 
 [1108. Defanging an IP Address](https://leetcode.com/problems/defanging-an-ip-address/)
 ```java
