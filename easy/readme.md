@@ -18,6 +18,20 @@ class Solution {
 }
 ```
 
+[26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(1)
+    public int removeDuplicates(int[] arr) {
+        int k = 1;
+        for (int i = 1; i < arr.length; i++)
+            if (arr[k - 1] != arr[i])
+                arr[k++] = arr[i];
+        return k;
+    }
+}
+```
+
 [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 ```java
 class Solution {
