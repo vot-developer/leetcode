@@ -1,3 +1,23 @@
+[1. Two Sum](https://leetcode.com/problems/two-sum/)
+```java
+class Solution {
+    //time - O(n), space - O(n)
+    public int[] twoSum(int[] arr, int targetSum) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++){
+            int target = targetSum - arr[i];
+            if (map.containsKey(target) && i != map.get(target))
+                return new int[]{i, map.get(target)};
+            else
+                map.put(arr[i], i);
+        }
+
+        return new int[] { -1, -1 };
+    }
+}
+```
+
 [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 ```java
 class Solution {
