@@ -24,32 +24,36 @@ class Solution {
 [15. 3Sum.](https://leetcode.com/problems/3sum/)
 ```java
 class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> solutions = new HashSet<>();
-        Arrays.sort(nums);
+    //pattern - two pointers, time - O(n^2), space - O(n)
+    public List<List<Integer>> threeSum(int[] arr) {
+        if (arr.length < 3) return new ArrayList<>();
+        Arrays.sort(arr);
+        List<List<Integer>> solutions = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (i > 0 && arr[i] == arr[i - 1])
+                continue;
 
-        if (nums.length < 3)
-            return new ArrayList<>();
-
-        for (int i = 0; i < nums.length; i++) {
             int left = i + 1;
-            int right = nums.length - 1;
+            int right = arr.length - 1;
 
             while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-
+                int sum = arr[i] + arr[left] + arr[right];
                 if (sum > 0) {
                     right--;
                 } else if (sum < 0) {
                     left++;
                 } else {
-                    solutions.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    solutions.add(Arrays.asList(arr[i], arr[left], arr[right]));
                     left++;
+                    right--;
+                    while (left < right && arr[left] == arr[left - 1])
+                        left++; // skip same element to avoid duplicate triplets
+                    while (left < right && arr[right] == arr[right + 1])
+                        right--; // skip same element to avoid duplicate triplets
                 }
             }
         }
-
-        return new ArrayList<>(solutions);
+        return solutions;
     }
 }
 ```
