@@ -32,6 +32,38 @@ class Solution {
 }
 ```
 
+[27. Remove Element](https://leetcode.com/problems/remove-element/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(1)
+    public int removeElement(int[] arr, int key) {
+        int k = 0;
+        for (int i = 0; i < arr.length; i++)
+            if (arr[i] != key)
+                arr[k++] = arr[i];
+        return k;
+    }
+}
+```
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(1)
+    public int removeElement(int[] nums, int val) {
+        int i = 0;
+        int n = nums.length;
+        while (i < n) {
+            if (nums[i] == val) {
+                nums[i] = nums[n - 1];
+                n--;
+            } else {
+                i++;
+            }
+        }
+        return n;
+    }
+}
+```
+
 [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 ```java
 class Solution {
