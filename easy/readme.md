@@ -116,6 +116,26 @@ private Node top;
     }
 }
 ```
+[167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(1)
+    public int[] twoSum(int[] arr, int targetSum) {
+        int l = 0, r = arr.length - 1;
+
+        while (l <= r){
+            if (arr[l] + arr[r] > targetSum)
+                r--;
+            else if (arr[l] + arr[r] < targetSum)
+                l++;
+            else
+                return new int[] { l + 1, r + 1 };
+        }
+
+        return new int[] { -1, -1 };
+    }
+}
+```
 
 [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
 ```java
