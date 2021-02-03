@@ -24,7 +24,7 @@ class Solution {
 [15. 3Sum.](https://leetcode.com/problems/3sum/)
 ```java
 class Solution {
-    //pattern - two pointers, time - O(n^2), space - O(n)
+    //pattern - two pointers, time - O(n^2), space - O(1)
     public List<List<Integer>> threeSum(int[] arr) {
         if (arr.length < 3) return new ArrayList<>();
         Arrays.sort(arr);
@@ -61,7 +61,7 @@ class Solution {
 [16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
 ```java
 class Solution {
-    //pattern - two pointers, time - O(n^2), space - O(n)
+    //pattern - two pointers, time - O(n^2), space - O(1)
     public int threeSumClosest(int[] arr, int targetSum) {
         int min = Integer.MAX_VALUE;
         Arrays.sort(arr);
@@ -594,6 +594,28 @@ class MyCircularDeque {
         }
     }
 ```
+
+[713. Subarray Product Less Than K](https://leetcode.com/problems/subarray-product-less-than-k/)
+```java
+class Solution {
+    //patterns - two pointers and sliding window, time - O(n), space - O(1)
+    public int numSubarrayProductLessThanK(int[] arr, int target) {
+        if (target <= 1) return 0;
+        
+        int result = 0;
+        int product = 1, left = 0;
+        for (int right = 0; right < arr.length; right++){
+            product *= arr[right];
+            while (product >= target && left < arr.length)
+                product /= arr[left++];
+
+            result += right - left + 1;                
+        }
+        return result;        
+    }
+}
+```
+
 [904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
 ```java
 class Solution {
