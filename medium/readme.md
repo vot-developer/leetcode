@@ -58,6 +58,36 @@ class Solution {
 }
 ```
 
+[16. 3Sum Closest](https://leetcode.com/problems/3sum-closest/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n^2), space - O(n)
+    public int threeSumClosest(int[] arr, int targetSum) {
+        int min = Integer.MAX_VALUE;
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            int l = i + 1;
+            int r = arr.length - 1;
+
+            while (l < r) {
+                int diff = targetSum - arr[i] - arr[l] - arr[r];
+
+                if (Math.abs(diff) < Math.abs(min))
+                    min = diff;
+                if (diff > 0)
+                    l++;
+                else if (diff < 0)
+                    r--;
+                else
+                    return targetSum;
+            }
+        }
+        return targetSum - min;
+    }
+}
+```
+
 [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 ```java
 class Solution {
