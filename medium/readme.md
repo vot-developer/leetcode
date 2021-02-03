@@ -168,22 +168,16 @@ class Solution {
 [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 ```java
 class Solution {
-    public void sortColors(int[] array) {
-        int leftBorder = 0;
-        int rightBorder = array.length - 1;
-
-        int i = 0;
-        while (i <= rightBorder){
-            if (array[i] == 0){
-                swap(array, i, leftBorder);
-                leftBorder++;
+    //pattern - two pointers, time - O(n), space - O(1)
+    public void sortColors(int[] arr) {
+        int i = 0, l = 0, r = arr.length - 1;
+        while (i <= r) {
+            if (arr[i] == 0)
+                swap(arr, i++, l++);
+            else if (arr[i] == 1)
                 i++;
-            } else if (array[i] == 2){
-                swap(array, i, rightBorder);
-                rightBorder--;
-            } else {
-                i++;
-            }            
+            else
+                swap(arr, i, r--);
         }
     }
     
