@@ -109,6 +109,88 @@ class Solution {
 }
 ```
 
+[141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    //pattern - fast slow pointers, time - O(n), space - O(1)
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast)
+                return true; // found the cycle
+        }
+        return false;
+    }
+}
+```
+
+[142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    //pattern - fast and slow pointers, time - O(n), space - O(1)
+    public ListNode detectCycle(ListNode head) {
+        int k = getCycleLength(head);
+        if (k == 0)
+            return null;
+
+        ListNode pointer1 = head;
+        ListNode pointer2 = head;
+        for (int i = 0; i < k; i++)
+            pointer1 = pointer1.next;
+
+        while (pointer1 != pointer2) {
+            pointer1 = pointer1.next;
+            pointer2 = pointer2.next;
+        }
+        return pointer1;
+    }
+    
+    private int getCycleLength(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                int count = 0;
+                ListNode counter = slow;
+                do {
+                    counter = counter.next;
+                    count++;
+                } while (counter != slow);
+                return count;
+            }
+        }
+        return 0;
+    }
+}
+```
+
 [155. Min Stack](https://leetcode.com/problems/min-stack/)
 ```java
 class MinStack {
