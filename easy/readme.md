@@ -265,6 +265,32 @@ class Solution {
 }
 ```
 
+[202. Happy Number](https://leetcode.com/problems/happy-number/)
+```java
+class Solution {
+    //pattern - fast and slow pointers, time - O(log n), space - O(1)
+    public boolean isHappy(int num) {
+        int slow = num;
+        int fast = num;
+        do {
+            slow = next(slow);
+            fast = next(next(fast));
+        } while (slow != fast);
+
+        return slow == 1;
+    }
+    
+    private int next(int num){
+        int sum = 0;
+        while(num != 0){
+            sum += Math.pow(num % 10, 2);
+            num /= 10;
+        }
+        return sum;
+    }
+}
+```
+
 [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
 ```java
 class MyQueue {
