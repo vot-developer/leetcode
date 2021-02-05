@@ -740,6 +740,32 @@ class Solution {
 }
 ```
 
+[876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - fast and slow pointers, time - O(n), space - O(1)
+    public ListNode middleNode(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+}
+```
+
 [938. Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)
 ```java
 class Solution {
