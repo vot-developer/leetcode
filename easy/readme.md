@@ -353,6 +353,53 @@ class MyQueue {
 }
 ```
 
+[234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - fast and slow pointers, time - O(n), space - O(1)
+    public boolean isPalindrome(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        ListNode checker = head;
+        ListNode reverseChecker = makeReverse(slow);
+        while (checker != null && reverseChecker != null) {
+            if (checker.val != reverseChecker.val)
+                return false;
+            checker = checker.next;
+            reverseChecker = reverseChecker.next;
+        }
+
+        return true;
+    }
+    
+    private ListNode makeReverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
+```
+
 [349. Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/)
 ```java
 class Solution {
