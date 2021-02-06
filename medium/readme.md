@@ -291,6 +291,56 @@ class Solution {
 }
 ```
 
+[143. Reorder List](https://leetcode.com/problems/reorder-list/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - fast and slow pointers, time - O(n), space - O(1)
+    public void reorderList(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        ListNode reverse = makeReverse(slow);
+        while (head != null && reverse != null){
+            ListNode temp = head.next;
+            head.next = reverse;
+            head = temp;
+
+            temp = reverse.next;
+            reverse.next = head;
+            reverse = temp;
+        }
+
+        if (head != null)
+            head.next = null;
+    }
+
+    private ListNode makeReverse(ListNode head){
+        ListNode prev = null;
+        while (head != null){
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
+```
+
 [173. Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)
 ```java
 class BSTIterator {
