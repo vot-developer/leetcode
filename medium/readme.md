@@ -268,6 +268,34 @@ class Solution {
 }
 ```
 
+[57. Insert Interval](https://leetcode.com/problems/insert-interval/)
+```java
+class Solution {
+    //pattern - merge intervals, time - O(n), space - O(n)
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> mergedIntervals = new ArrayList<>();
+
+        int i = 0;
+        for (; i < intervals.length && intervals[i][1] < newInterval[0]; i++)
+            mergedIntervals.add(intervals[i]);
+
+        //merging
+        while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+            newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+            i++;
+        }
+
+        mergedIntervals.add(newInterval);
+
+        for (; i < intervals.length; i++)
+            mergedIntervals.add(intervals[i]);
+
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);        
+    }
+}
+```
+
 [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 ```java
 class Solution {
