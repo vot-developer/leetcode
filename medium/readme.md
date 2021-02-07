@@ -206,6 +206,68 @@ class Solution {
 }
 ```
 
+[56. Merge Intervals](https://leetcode.com/problems/merge-intervals/)
+```java
+class Solution {
+    //pattern - merge intervals, time - O(n), space - O(n)
+	public int[][] merge(int[][] intervals) {
+        if (intervals.length < 2)
+            return intervals;
+
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        List<int[]> result = new ArrayList<>();
+
+        int[] intervalOne = intervals[0];
+        for (int[] intervalTwo : intervals) {
+            if (intervalOne[1] < intervalTwo[0]) {
+                result.add(intervalOne);
+                intervalOne = intervalTwo;
+            } else {
+                intervalOne[1] = Math.max(intervalOne[1], intervalTwo[1]);
+            }
+        }
+        result.add(intervalOne);
+
+        return result.toArray(new int[result.size()][]);
+	}
+}
+```
+```java
+class Solution {
+    //pattern - merge intervals, time - O(n), space - O(1)
+    public int[][] merge(int[][] intervals) {
+        if (intervals.length < 2)
+            return intervals;
+
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+
+        int startIndex = 0, endIndex = 1;
+        int start = intervals[startIndex][0];
+        int end = intervals[startIndex][1];
+        while (endIndex < intervals.length){
+            if (end < intervals[endIndex][0]){
+                intervals[startIndex][0] = start;
+                intervals[startIndex][1] = end;
+                start = intervals[endIndex][0];
+                end = intervals[endIndex][1];
+                startIndex++;
+                endIndex++;
+            } else {
+                intervals[startIndex][0] = start;
+                intervals[startIndex][1] = Math.max(
+                        end, intervals[endIndex][1]);
+                end = intervals[startIndex][1];
+                endIndex++;
+            }
+        }
+        intervals[startIndex][0] = start;
+        intervals[startIndex][1] = end;
+
+        return Arrays.copyOfRange(intervals, 0, startIndex + 1);
+    }
+}
+```
+
 [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 ```java
 class Solution {
