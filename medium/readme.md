@@ -540,6 +540,57 @@ class Solution {
 }
 ```
 
+[457. Circular Array Loop](https://leetcode.com/problems/circular-array-loop/)
+```java
+class Solution {
+    //pattern - fast and easy pointers, time - O(n), space - O(1)
+    public boolean circularArrayLoop(int[] arr) {
+        if (arr.length == 1)
+            return false;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0)
+                continue;
+
+            int fast = stepNext(i, arr);
+            int slow = i;
+            while (arr[fast] * arr[i] > 0 && arr[stepNext(fast, arr)] * arr[i] > 0) {
+                if (slow == fast) {
+                    if (slow == stepNext(slow, arr))
+                        break; //one element loop is not loop
+                    else
+                        return true;
+                }
+                fast = stepNext(fast, arr);
+                fast = stepNext(fast, arr);
+                slow = stepNext(slow, arr);
+            }
+
+            //loop checked - mark it by 0 values :
+            int current = i;
+            int prev = i;
+            int prevValue = arr[i];
+            while (arr[current]*prevValue > 0){
+                prevValue = arr[current];
+                prev = current;
+                current = stepNext(current, arr);
+                arr[prev] = 0;
+            }
+        }
+        return false;
+    }
+    
+     private int stepNext(int i, int[] arr) {
+        int next = i + arr[i];
+        if (next >= arr.length)
+            next %= arr.length;
+        else if (next < 0)
+            next = next % arr.length + arr.length;
+        return next;
+    }
+}
+```
+
 [567. Permutation in String](https://leetcode.com/problems/permutation-in-string/)
 ```java
 class Solution {
