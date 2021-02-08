@@ -597,6 +597,33 @@ class Solution {
     }
 }
 ```
+
+[435. Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)
+```java
+class Solution {
+    //patterns - 'greedy algorithm', 'merge intervals', time - O(n * log n), space - O(1) 
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if (intervals.length < 2)
+            return 0;
+
+        Arrays.sort(intervals, Comparator.comparingInt(value -> value[0])); //by start
+
+        int count = 0;
+        int prevEnd = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++){
+            if (prevEnd > intervals[i][0]){ //overlapping
+                prevEnd = Math.min(intervals[i][1], prevEnd);//chosen smaller
+                count++;
+            } else {
+                prevEnd = intervals[i][1];
+            }
+        }
+
+        return count;
+    }
+}
+```
+
 [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 ```java
 class Solution {
