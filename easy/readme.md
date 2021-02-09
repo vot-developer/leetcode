@@ -291,6 +291,34 @@ class Solution {
 }
 ```
 
+[206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - reverse linkedlist, time - O(n), space - O(1)
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode next;
+        while (head != null){
+            next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
+```
+
 [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
 ```java
 class MyQueue {
