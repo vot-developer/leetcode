@@ -498,6 +498,36 @@ class Solution {
 }
 ```
 
+[448. Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)
+```java
+class Solution {
+    //pattern - cyclic sort, time - O(n), space - O(1)
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> missingNumbers = new ArrayList<>();
+        int index = 0;
+        while (index < nums.length) {
+            int expectedIndex = nums[index] - 1;
+            if (nums[expectedIndex] != nums[index])
+                swap(index, expectedIndex, nums);
+            else
+                index++;
+        }
+
+        for (int i = 0; i < nums.length; i++)
+            if (i != nums[i] - 1)
+                missingNumbers.add(i + 1);
+
+        return missingNumbers;        
+    }
+    
+    private static void swap(int i, int j, int[] nums) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
 [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
 ```java
 //time - 0(n), space - O(n) (stack)
