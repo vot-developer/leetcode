@@ -505,6 +505,34 @@ class Solution {
 }
 ```
 
+[287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
+```java
+class Solution {
+    //pattern - cyclic sort, time - O(n), space - O(1)
+    public int findDuplicate(int[] nums) {
+        int index = 0;
+        while (index < nums.length) {
+            int expectedIndex = nums[index] - 1;
+            if (index != expectedIndex) {
+                if (nums[index] != nums[expectedIndex])
+                    swap(index, expectedIndex, nums);
+                else
+                    return nums[index];
+            } else
+                index++;
+        }
+
+        return -1;
+    }
+    
+     private void swap(int i, int j, int[] nums) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
 [384. Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/)
 ```java
 class Solution {
