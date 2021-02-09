@@ -400,6 +400,34 @@ class Solution {
 }
 ```
 
+[268. Missing Number](https://leetcode.com/problems/missing-number/)
+```java
+class Solution {
+    //pattern - cyclic sort, time - O(n), space - O(1)
+    public int missingNumber(int[] nums) {
+        int index = 0;
+        while (index < nums.length){
+            int expectedIndex = nums[index];
+            if (expectedIndex < nums.length && expectedIndex != index)
+                swap(index, expectedIndex, nums);
+            else
+                index++;
+        }
+        for (int i = 0; i < nums.length; i++)
+            if (i != nums[i])
+                return i;
+
+        return nums.length;        
+    }
+    
+    private void swap(int i, int j, int[] nums) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
 [349. Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/)
 ```java
 class Solution {
