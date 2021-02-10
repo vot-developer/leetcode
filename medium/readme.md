@@ -320,6 +320,50 @@ class Solution {
 }
 ```
 
+[92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - reversal of linkedlist, time - O(n), space - O(1)
+    public ListNode reverseBetween(ListNode head, int p, int q) {
+        if (head.next == null || p == q)
+            return head;
+
+        ListNode current = head;
+        ListNode prev = null, next = null;
+        for (int i = 1; i < p  && current != null; i++){
+            prev = current;
+            current = current.next;
+        }
+        ListNode beforeP = prev;
+        ListNode nodeP = current;
+        for (int i = 0; i < q - p + 1 && current != null; i++){ //finish on q + 1 node;
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        if (beforeP != null)
+            beforeP.next = prev;
+        else
+            head = prev;
+
+        nodeP.next = current;
+        return head;
+    }
+}
+```
+
 [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 ```java
 //time - O(n), space - O(n)
