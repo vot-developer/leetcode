@@ -1,3 +1,54 @@
+[25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    //pattern - reversal of linkedlist, time - O(n), space - O(1)
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (k <= 1 || head == null)
+            return head;
+
+        ListNode current = head;
+        ListNode next, beforeSublist = null, prev = null;
+        while (current != null) {
+            if (!isExistKItems(current, k))
+                break;
+
+            ListNode firstInSubList = current;
+            for (int i = 0; i < k && current != null; i++) {
+                next = current.next;
+                current.next = prev;
+                prev = current;
+                current = next;
+            }
+            firstInSubList.next = current;
+            if (beforeSublist == null)
+                head = prev;
+            else
+                beforeSublist.next = prev;
+            beforeSublist = firstInSubList;
+        }
+
+        return head;        
+    }
+    
+    private boolean isExistKItems(ListNode head, int k){
+        int i = 0;
+        for (; i < k && head != null; i++)
+            head = head.next;
+        return i == k;
+    }
+}
+```
+
 [30. Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/)
 ```java
 class Solution {
