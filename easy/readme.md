@@ -127,6 +127,7 @@ class Solution {
  * }
  */
 class Solution {
+    //pattern - bfs, time - O(n), space - O(n)
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> result = new LinkedList<>();
         if (root == null)
