@@ -516,6 +516,81 @@ class Solution {
 }
 ```
 
+[116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+class Solution {
+    //pattern - bfs, time - O(n), space - O(n)
+    public Node connect(Node root) {
+        if (root == null)
+            return root;
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            Node prev = null;
+            for (int i = 0; i < size; i++){
+                Node node = queue.poll();
+                if (prev != null)
+                    prev.next = node;
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+                prev = node;
+            }
+        }
+        return root;
+    }
+}
+```
+```java
+class Solution {
+    //pattern - bfs, time - O(n), space - O(1) (using property - perfect binary tree)
+    public Node connect(Node root) {
+        if (root == null)
+            return root;
+        
+        Node node = root;
+        while (node != null){
+            Node levelNode = node;
+            while (levelNode!= null){
+                if (levelNode.left != null)
+                    levelNode.left.next=levelNode.right;
+                if (levelNode.right != null && levelNode.next != null)
+                    levelNode.right.next = levelNode.next.left;                
+                levelNode = levelNode.next;
+            }
+            node = node.left;
+        }
+                
+        return root;
+    }
+}
+```
+
 [143. Reorder List](https://leetcode.com/problems/reorder-list/)
 ```java
 /**
