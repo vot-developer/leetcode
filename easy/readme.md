@@ -109,6 +109,50 @@ class Solution {
 }
 ```
 
+[104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //pattern - bfs, time - O(n), space - O(n)
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int count = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            count++;
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>(size);
+            for (int i = 0; i < size; i++){
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+        }
+        return count;
+    }
+}
+```
+
 [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)
 ```java
 /**
@@ -152,6 +196,53 @@ class Solution {
     }
 }
 ```
+
+[111. Minimum Depth of Binary Tree](https://leetcode.com/problems/minimum-depth-of-binary-tree/)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //pattern - bfs, time - O(n), space - O(n)
+    public int minDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int count = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            count++;
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>(size);
+            for (int i = 0; i < size; i++){
+                TreeNode node = queue.poll();
+                if (node.right == null && node.left == null)
+                    return count;
+                level.add(node.val);
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+        }
+        return count;
+    }
+}
+```
+
 
 [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 ```java
