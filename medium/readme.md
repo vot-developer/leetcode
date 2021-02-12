@@ -516,6 +516,48 @@ class Solution {
 }
 ```
 
+[113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //patterns - dfs, backtrack; time - O(n^2), space - O(n * log n (h))
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> allPaths = new ArrayList<>();
+        doFindPaths(root, targetSum, new ArrayList<>(), allPaths);
+        return allPaths;
+    }
+    
+    private void doFindPaths(TreeNode root, int sum, List<Integer> path, List<List<Integer>> allPaths){
+        if (root == null)
+            return;
+
+        path.add(root.val);
+
+        if (root.val == sum && root.left == null && root.right == null)
+            allPaths.add(new ArrayList<>(path));
+
+        doFindPaths(root.left, sum - root.val, path, allPaths);
+        doFindPaths(root.right, sum - root.val, path, allPaths);
+
+        path.remove(path.size() - 1);
+    }
+}
+```
+
 [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 ```java
 /*
