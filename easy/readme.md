@@ -746,6 +746,44 @@ class Solution {
 }
 ```
 
+[543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int max = 0;
+    //pattern - dfs, time - O(n), space - O(n)
+    public int diameterOfBinaryTree(TreeNode root) {
+        max = 1;
+        doFind(root);
+        return max - 1;
+    }
+    
+    private int doFind(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int left = doFind(root.left);
+        int right = doFind(root.right);
+        max = Math.max(left + right + 1, max);
+        return Math.max(left, right) + 1;
+    }
+}
+```
+
 [581. Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/)
 ```java
 class Solution {
