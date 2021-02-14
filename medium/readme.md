@@ -985,6 +985,53 @@ class Solution {
 }
 ```
 
+[437. Path Sum III](https://leetcode.com/problems/path-sum-iii/)
+```java
+class Solution {
+    //pattern  - dsf, dp; time - O(n^2), space - O(n)
+    public int pathSum(TreeNode root, int sum) {
+        return doCount(root, sum, false);
+    }
+    
+    private int doCount(TreeNode node, int sum, boolean isCounting){
+        if (node == null)
+            return 0;
+
+        int result = (node.val == sum ? 1 : 0)
+                + doCount(node.right, sum - node.val, true)
+                + doCount(node.left, sum - node.val, true);
+        if (!isCounting)
+            result += doCount(node.right, sum, false)  + doCount(node.left, sum, false);
+        return result;
+    }
+}
+```
+```java
+class Solution {
+    //pattern  - dsf; time - O(n), space - O(n)
+    public int pathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> sumPrefixes = new HashMap();
+        sumPrefixes.put(0, 1); //if 'prefixSum - target' = 0 -> it's 1.
+        return doCount(root, 0, sum, sumPrefixes);
+    }
+    
+    private static int doCount(TreeNode node, int currSum, int target, Map<Integer, Integer> sumPrefixes) {
+        if (node == null)
+            return 0;
+
+        currSum += node.val;
+        int result = sumPrefixes.getOrDefault(currSum - target, 0); //found target sum by remove prefix path
+        sumPrefixes.put(currSum, sumPrefixes.getOrDefault(currSum, 0) + 1); //save sum for current path (prefix)
+
+
+        result += doCount(node.left, currSum, target, sumPrefixes)
+                + doCount(node.right, currSum, target, sumPrefixes);
+        sumPrefixes.put(currSum, sumPrefixes.get(currSum) - 1); //backtrack
+        return result;
+    }
+}
+```
+
 [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 ```java
 class Solution {
