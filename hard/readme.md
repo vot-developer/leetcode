@@ -270,6 +270,34 @@ class Solution {
 }
 ```
 
+[502. IPO](https://leetcode.com/problems/ipo/)
+```java
+class Solution {
+    public int findMaximizedCapital(int k, int W, int[] profits, int[] capital) {
+        int amount = W;
+
+        PriorityQueue<Integer> minCapital = new PriorityQueue<>(capital.length, (a, b) -> capital[a] - capital[b]);
+        PriorityQueue<Integer> maxProfit = new PriorityQueue<>(profits.length, (a, b) -> profits[b] - profits[a]);
+
+        for (int i = 0; i < capital.length; i++)
+            minCapital.offer(i);
+
+        for (int j = 0; j < k; j++){
+
+            while (!minCapital.isEmpty() &&  capital[minCapital.peek()] <= amount)
+                maxProfit.offer(minCapital.poll());
+
+            if (maxProfit.isEmpty())
+                break;
+
+            amount+= profits[maxProfit.poll()];
+        }
+
+        return amount;
+    }
+}
+```
+
 [887. Super Egg Drop](https://leetcode.com/problems/super-egg-drop/)
 ```java
 class Solution {
