@@ -273,6 +273,7 @@ class Solution {
 [502. IPO](https://leetcode.com/problems/ipo/)
 ```java
 class Solution {
+    //pattern - two heaps, time - O((n + k) * log n), space - O(n)
     public int findMaximizedCapital(int k, int W, int[] profits, int[] capital) {
         int amount = W;
 
