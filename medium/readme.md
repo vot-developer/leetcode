@@ -985,6 +985,57 @@ class Solution {
 }
 ```
 
+[436. Find Right Interval](https://leetcode.com/problems/find-right-interval/)
+```java
+class Solution {
+    //pattern - two heaps, time - O(n log n), space - O(n)
+    public int[] findRightInterval(int[][] intervals) {
+        int[] result = new int[intervals.length];
+        PriorityQueue<Integer> startPQ = new PriorityQueue<>(intervals.length,
+                (a, b) -> intervals[a][0] - intervals[b][0]);
+        PriorityQueue<Integer> endPQ = new PriorityQueue<>(intervals.length,
+                (a, b) -> intervals[a][1] - intervals[b][1]);
+
+        for (int i = 0; i < intervals.length; i++){
+            startPQ.offer(i);
+            endPQ.offer(i);
+        }
+
+        for (int i = 0; i < intervals.length; i++){
+            int index = endPQ.poll();
+            int end = intervals[index][1];
+            while (!startPQ.isEmpty() && intervals[startPQ.peek()][0] < end)
+                startPQ.poll();
+
+            if (!startPQ.isEmpty())
+                result[index] = startPQ.peek();
+            else
+                result[index] = -1;
+        }
+
+        return result;        
+    }
+}
+```
+```java
+class Solution {
+    //pattern - BST, time - O(n log n), space - O(n)
+    public int[] findRightInterval(int[][] intervals) {
+        int[] result = new int[intervals.length];
+        java.util.NavigableMap<Integer, Integer> map = new TreeMap<>();
+
+        for (int i = 0; i < intervals.length; i++)
+            map.put(intervals[i][0], i);
+
+        for (int i = 0; i < intervals.length; i++) {
+            Map.Entry<Integer, Integer> entry = map.ceilingEntry(intervals[i][1]);
+            result[i] = entry != null ? entry.getValue() : -1;
+        }
+        return result;
+    }
+}
+```
+
 [437. Path Sum III](https://leetcode.com/problems/path-sum-iii/)
 ```java
 class Solution {
