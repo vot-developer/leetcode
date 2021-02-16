@@ -227,50 +227,45 @@ class MedianFinder {
 
 [480. Sliding Window Median](https://leetcode.com/problems/sliding-window-median/)
 ```java
-class Solution {
-    private PriorityQueue<Integer> min = new PriorityQueue<>(Comparator.reverseOrder()); //ordered by max
-    private PriorityQueue<Integer> max = new PriorityQueue<>();
-    
-    //pattern - sliding window, two heaps; time - O(n), space - O(k)
+class Solution {    
+    //pattern - sliding window, two heaps; time - O(n log k), space - O(k)
     public double[] medianSlidingWindow(int[] nums, int k) {
         double[] result = new double[nums.length - k + 1];
-        int index = 0;
+
+        Comparator<Integer> comparator = (a, b) -> nums[a] != nums[b] ? Integer.compare(nums[a], nums[b]) : Integer.compare(a, b);
+        TreeSet<Integer> left = new TreeSet<>(comparator.reversed()); //ordered by max
+        TreeSet<Integer> right = new TreeSet<>(comparator);
 
         for (int i = 0; i < nums.length; i++) {
             if (i < k - 1) {
-                add(nums[i]);
+                right.add(i);
+                left.add(right.pollFirst());
+                balance(left, right);
                 continue;
             }
 
-            add(nums[i]);
-            result[index++] = findMedian();
-            remove(nums[i - k + 1]);
+            right.add(i);
+            left.add(right.pollFirst());
+            balance(left, right);
+            result[i - k + 1] = findMedian(nums, left, right);
+            if (!right.remove(i - k + 1))
+                left.remove(i - k + 1);
+            balance(left, right);
         }
 
         return result;
     }
 
-    private void add(int value) {
-        max.offer(value);
-        min.offer(max.poll());
-        if (max.size() < min.size())
-            max.offer(min.poll());
+    private void balance(TreeSet<Integer> left, TreeSet<Integer> right){
+        while (right.size() > left.size() + 1)
+            left.add(right.pollFirst());
+        while(right.size() < left.size())
+            right.add(left.pollFirst());
     }
 
-    private void remove(int value) {
-        if (!max.remove(value)) {
-            min.remove(value);
-        }
-
-        if (max.size() < min.size())
-            max.offer(min.poll());
-        else if (max.size() > min.size())
-            min.offer(max.poll());
-    }
-
-    public double findMedian() {
-        if (max.size() > min.size()) return max.peek();
-        return max.peek() / 2.0 + min.peek() / 2.0;
+    private double findMedian(int[] nums, TreeSet<Integer> left, TreeSet<Integer> right) {
+        if (right.size() != left.size()) return nums[right.first()];
+        return nums[right.first()] / 2.0 + nums[left.first()] / 2.0;
     }
 }
 ```
