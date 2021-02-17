@@ -320,6 +320,28 @@ class Solution {
 }
 ```
 
+[78. Subsets](https://leetcode.com/problems/subsets/)
+```java
+class Solution {
+    //pattern - subserts-bfs; time - O(n*2^n), space - O(n*2^n), total of subsets - O(2^n) 
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> subsets = new ArrayList<>();
+        subsets.add(new ArrayList<>()); //empty set
+
+        for (int num : nums){
+            int size = subsets.size();
+            for (int i = 0; i < size; i++){
+                List<Integer> set = new ArrayList<>(subsets.get(i));
+                set.add(num);
+                subsets.add(set);
+            }
+        }
+
+        return subsets;
+    }
+}
+```
+
 [92. Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/)
 ```java
 /**
