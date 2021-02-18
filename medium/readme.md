@@ -1434,6 +1434,35 @@ class Solution {
 }
 ```
 
+[784. Letter Case Permutation](https://leetcode.com/problems/letter-case-permutation/)
+```java
+class Solution {
+    //pattern - subsets-dfs(cascade); time - O(n*2^n), space - O(n*2^n), total - (2^n)
+    public List<String> letterCasePermutation(String str) {
+        List<String> permutations = new ArrayList<>();
+        permutations.add(str);
+
+        for (int i = 0; i < str.length(); i++){
+            if (!Character.isLetter(str.charAt(i)))
+                continue;
+
+            int size = permutations.size();
+            for (int j = 0; j < size; j++){
+                char[] c = permutations.get(j).toCharArray();
+                if (Character.isUpperCase(c[i])){
+                    c[i] = Character.toLowerCase(c[i]);
+                } else {
+                    c[i] = Character.toUpperCase(c[i]);
+                }
+                permutations.add(new String(c));
+            }
+        }
+
+        return permutations;
+    }
+}
+```
+
 [904. Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/)
 ```java
 class Solution {
