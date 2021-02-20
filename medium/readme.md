@@ -129,6 +129,87 @@ class Solution {
 }
 ```
 
+[22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+```java
+class Solution {
+    //pattern - dp, time - O(n*2^n), space - O(2^n)
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        char[] s = new char[2*n];
+        doDP(s, 0, 0, 0, n, result);
+        return result;
+    }  
+    
+    private void doDP(char[] s, int index, int leftCount, int rightCount, int n, List<String> result){
+        if (index == s.length) {
+            result.add(new String(s));
+            return;
+        }
+
+        if (leftCount < n) {
+            s[index] = '(';
+            doDP(s, index + 1, leftCount + 1, rightCount, n, result);
+        }
+
+        if (rightCount < leftCount){
+            s[index] = ')';
+            doDP(s, index + 1, leftCount, rightCount + 1, n, result);
+        }
+    }
+}
+```
+```java
+class Solution {
+    //pattern - subsets-bfs(cascade), time - O(n*2^n), space - O(n*2^n)
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        Queue<ParString> queue = new LinkedList<>();
+        ParString first = new ParString();
+        first.left = 1;
+        first.sb.append('(');
+        queue.add(first);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++){
+                ParString p = queue.poll();
+                if (p.left == n && p.right == n)
+                    result.add(p.sb.toString());
+                if (p.left < n){
+                    ParString left = new ParString(p);
+                    left.sb.append('(');
+                    left.left++;
+                    queue.offer(left);
+                }
+                if (p.left > p.right){
+                    ParString right = new ParString(p);
+                    right.sb.append(')');
+                    right.right++;
+                    queue.offer(right);
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+class ParString {
+    int left;
+    int right;
+    StringBuilder sb;
+
+    public ParString() {
+        this.sb = new StringBuilder();
+    }
+
+    public ParString(ParString parString) {
+        this.sb = new StringBuilder(parString.sb);
+        this.left = parString.left;
+        this.right = parString.right;
+    }
+}
+```
+
 [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 ```java
 class Solution {
