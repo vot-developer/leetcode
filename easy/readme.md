@@ -908,6 +908,7 @@ class Solution {
 [744. Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/)
 ```java
 class Solution {
+    //pattern - binary-search, time - O(log n), space - O(1)
     public char nextGreatestLetter(char[] letters, char target) {
         int start = 0;
         int end = letters.length - 1;
