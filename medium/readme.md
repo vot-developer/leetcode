@@ -616,6 +616,34 @@ class Solution {
 }
 ```
 
+[96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/)
+```java
+class Solution {
+    //pattern - subsets-dp; time - O(n^2), space - O(n)
+    public int numTrees(int n) {
+        return doDP(n, new Integer[n + 1]);
+    }
+    
+    private int doDP(int n, Integer[] dp) {
+        if (n <= 1)
+            return 1;
+
+        if (dp[n] != null)
+            return dp[n];
+
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            int left = doDP( i - 1, dp);
+            int right = doDP(n - i, dp);
+            count += left * right;
+        }
+
+        dp[n] = count;
+        return dp[n];
+    }
+}
+```
+
 [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 ```java
 class Solution {
