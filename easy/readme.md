@@ -863,6 +863,7 @@ class Solution {
 [704. Binary Search](https://leetcode.com/problems/binary-search/)
 ```java
 class Solution {
+    //pattern - binary-search, time - O(log n), space - O(1)
     public int search(int[] nums, int target) {
         int start = 0, end = nums.length - 1;
         while (start <= end) {
