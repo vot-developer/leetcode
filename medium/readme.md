@@ -562,6 +562,60 @@ class Solution {
 ```
 //use Morris method for space - O(1) (rewrite linking of nodes and on iterator - move it back)
 
+[95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/)
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //pattern - subsets-dp; time - O(n * 2^n), space - (n * 2^n)
+    public List<TreeNode> generateTrees(int n) {
+        if (n <= 0)
+            return new ArrayList<>();
+        return findUniqueTreesRecursive(1, n);
+    }
+    
+    private List<TreeNode> findUniqueTreesRecursive(int start, int end) {
+        List<TreeNode> result = new ArrayList<>();
+
+        if (start > end) {
+            result.add(null);//for do loop by other side
+            return result;
+        }
+
+        if (start == end){
+            result.add(new TreeNode(start));
+            return result;
+        }
+
+        for (int i = start; i <= end; i++){
+            List<TreeNode> left = findUniqueTreesRecursive(start, i - 1);
+            List<TreeNode> right = findUniqueTreesRecursive(i + 1, end);
+            for (TreeNode l : left)
+                for (TreeNode r : right){
+                    TreeNode node = new TreeNode(i);
+                    node.left = l;
+                    node.right = r;
+                    result.add(node);
+                }
+        }
+        return result;
+    }
+}
+```
+
 [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
 ```java
 class Solution {
