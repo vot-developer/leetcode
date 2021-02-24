@@ -905,6 +905,35 @@ class Solution {
 }
 ```
 
+[744. Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/)
+```java
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+        int start = 0;
+        int end = letters.length - 1;
+        if (target >= letters[end])
+            return letters[start];
+
+        while (start <= end) {
+            if (start == end){
+                if (target != letters[start])
+                    return letters[start];
+                else 
+                    return letters[start + 1];
+            }
+            
+            int mid = start + (end - start) / 2;
+            if (target < letters[mid])
+                end = mid;
+            else // target >= letters[mid]
+                start = mid + 1;
+        }
+
+        return letters[0];        
+    }
+}
+```
+
 [771. Jewels and Stones](https://leetcode.com/problems/jewels-and-stones/)
 ```java
 class Solution {
