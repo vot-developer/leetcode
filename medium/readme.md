@@ -247,6 +247,69 @@ class Solution {
 }
 ```
 
+[34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+```java
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] result = new int[]{-1, -1};
+
+        int index = findTarget(nums, target);
+        if (index == -1)
+            return result;
+
+        int left = findLeft(nums, target, index);
+        int right = findRight(nums, target, index);
+        return new int[]{left, right};        
+    }
+    
+    private int findRight(int[] nums, int target, int start) {
+        int end = nums.length - 1;
+        int result = start;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] > target)
+                end = mid - 1;
+            else {
+                result = mid;
+                start = mid + 1;
+            }
+        }
+        return result;
+    }
+
+    private int findLeft(int[] nums, int target, int end) {
+        int start = 0;
+        int result = end;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] < target)
+                start = mid + 1;
+            else {
+                result = mid;
+                end = mid - 1;
+            }
+        }
+        return result;
+    }
+
+    private int findTarget(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target)
+                return mid;
+
+            if (nums[mid] > target)
+                end = mid - 1;
+            if (nums[mid] < target)
+                start = mid + 1;
+        }
+        return -1;
+    }
+}
+```
+
 [46. Permutations](https://leetcode.com/problems/permutations/)
 ```java
 class Solution {
