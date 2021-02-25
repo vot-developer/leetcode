@@ -250,6 +250,7 @@ class Solution {
 [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 ```java
 class Solution {
+    //pattern - mbs, time - O(log n), space - O(1)
     public int[] searchRange(int[] nums, int target) {
         int[] result = new int[]{-1, -1};
 
