@@ -819,7 +819,7 @@ class Solution {
 }
 ```
 
-[637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)
+[617. Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/)
 ```java
 /**
  * Definition for a binary tree node.
@@ -836,6 +836,28 @@ class Solution {
  *     }
  * }
  */
+class Solution {
+    //time - O(n), space - O(1)
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null)
+            return null;
+        
+        if (t1 == null && t2 != null)
+            return t2;
+        
+        if (t2 == null && t1 != null)
+            return t1;
+        
+        t1.val += t2.val;
+        t1.left = mergeTrees(t1.left, t2.left);
+        t1.right = mergeTrees(t1.right, t2.right);
+        return t1;  
+    }    
+}
+```
+
+[637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)
+```java
 class Solution {
     //pattern - bfs, time - O(n), space - O(n)
     public List<Double> averageOfLevels(TreeNode root) {
