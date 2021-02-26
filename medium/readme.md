@@ -1062,6 +1062,28 @@ class Solution {
 }
 ```
 
+[153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+```java
+class Solution {
+    public int findMin(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        if (nums[start] < nums[end])
+            return nums[start];
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (start == mid){
+                return Math.min(nums[start], nums[end]);
+            }
+            if (nums[mid] < nums[start])
+                end = mid;
+            else
+                start = mid;
+        }
+        return nums[end];
+    }
+}
+```
+
 [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
 ```java
 class Solution {
