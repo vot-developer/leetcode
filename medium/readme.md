@@ -552,6 +552,84 @@ class Solution {
 }
 ```
 
+[81. Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)
+```java
+class Solution {
+    //time - O(log n), space - O(1)
+    public boolean search(int[] nums, int target) {
+        int start = 0, end = nums.length - 1, mid = -1;
+        while(start <= end) {
+            mid = (start + end) / 2;
+            if (nums[mid] == target) 
+                return true;
+            
+            //rotate in left side
+            if (nums[mid] < nums[end] || nums[mid] < nums[start]) {
+                if (target > nums[mid] && target <= nums[end]) 
+                    start = mid + 1;
+                else 
+                    end = mid - 1;
+            //rotate in right side
+            } else if (nums[mid] > nums[start] || nums[mid] > nums[end]) {
+                if (target < nums[mid] && target >= nums[start]) 
+                    end = mid - 1;
+                else 
+                    start = mid + 1;
+            } else 
+                end--;
+        }
+        
+        return false;
+    }
+}
+```
+```java
+class Solution {
+    //time - O(log n), space - O(1)
+    public boolean search(int[] nums, int target) {
+        int[] maxIndexes = findMax(nums);
+        if (nums[maxIndexes[0]] == target)
+            return true;
+        int keyIndex = binarySearch(nums, target, 0, maxIndexes[0]);
+        if (keyIndex != -1)
+            return true;
+        int result = binarySearch(nums, target, maxIndexes[1] + 1, nums.length - 1);
+        return result != -1 ? true : false;
+    }
+    
+    private int[] findMax(int[] arr) {
+        int start = 0, end = arr.length - 1;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            while (mid + 1 < end && arr[mid] == arr[mid + 1])
+                mid++;
+            if (arr[mid] > arr[mid + 1] || arr[mid] < arr[start] || arr[mid + 1] == arr[mid])
+                end = start + ((end - start) / 2);
+            else
+                start = mid + 1;
+        }
+        int first = start;
+        while (start + 1 < arr.length && arr[start] == arr[start + 1])
+            start++;
+        return new int[]{first, start};
+    }
+
+    private int binarySearch(int[] arr, int key, int start, int end) {
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (key == arr[mid])
+                return mid;
+
+            if (key < arr[mid])
+                end = mid - 1;
+            else  // key > arr[mid]
+                start = mid + 1;
+        }
+        return -1;
+    }
+}
+```
+
 [90. Subsets II](https://leetcode.com/problems/subsets-ii/)
 ```java
 class Solution {
