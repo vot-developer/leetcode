@@ -943,6 +943,38 @@ class Solution {
 }
 ```
 
+[728. Self Dividing Numbers](https://leetcode.com/problems/self-dividing-numbers/)
+```java
+class Solution {
+    //time - O(n), space - O(n)
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> result = new ArrayList<>();
+        if (left > right)
+            return result;
+        
+        for (int i = left; i <= right; i++){
+            if (i % 10 == 0)
+                continue;
+            
+            int k = i;
+            while (k > 0){
+                int j = k % 10;
+                if (j % 10 == 0)
+                    break;                
+                if (i % j != 0)
+                    break;                
+                k = k / 10;
+            }
+            
+            if (k == 0)
+                result.add(i);
+        }
+        
+        return result;
+    }
+}
+```
+
 [744. Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/)
 ```java
 class Solution {
