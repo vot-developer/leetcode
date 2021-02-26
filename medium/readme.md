@@ -213,6 +213,44 @@ class ParString {
 [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
 ```java
 class Solution {
+    //pattern - mbs, time - O(log n), space - O(1)
+    public int search(int[] nums, int target) {
+        int maxIndex = findMax(nums);
+        int keyIndex = binarySearch(nums, target, 0, maxIndex);
+        if (keyIndex != -1)
+            return keyIndex;
+        return binarySearch(nums, target, maxIndex + 1, nums.length - 1);
+    }
+    
+    private int findMax(int[] arr) {
+        int start = 0, end = arr.length - 1;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (arr[mid] > arr[mid + 1] || arr[mid] < arr[start])
+                end = mid;
+            else
+                start = mid + 1;
+        }
+        return start;
+    }
+
+    private int binarySearch(int[] arr, int key, int start, int end) {
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (key == arr[mid])
+                return mid;
+
+            if (key < arr[mid])
+                end = mid - 1;
+            else  // key > arr[mid]
+                start = mid + 1;
+        }
+        return -1;
+    }
+}
+```
+```java
+class Solution {
     public int search(int[] nums, int target) {
         if (nums.length == 0)
             return -1;
