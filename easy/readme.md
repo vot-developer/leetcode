@@ -621,6 +621,22 @@ class Solution {
 }
 ```
 
+[344. Reverse String](https://leetcode.com/problems/reverse-string/)
+```java
+class Solution {
+    //time - O(n), space - O(1)
+    public void reverseString(char[] s) {
+        int k = s.length - 1;
+        int size = s.length / 2;
+        for (int i = 0; i < size; i++) {
+            char tmp = s[i];
+            s[i] = s[k];
+            s[k--] = tmp;
+        }
+    }
+}
+```
+
 [349. Intersection of Two Arrays](https://leetcode.com/problems/intersection-of-two-arrays/)
 ```java
 class Solution {
