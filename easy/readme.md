@@ -274,6 +274,20 @@ class Solution {
 }
 ```
 
+[136. Single Number](https://leetcode.com/problems/single-number/)
+```java
+class Solution {
+    //pattern - xor; time - O(n), space - O(1)
+    public int singleNumber(int[] nums) {
+        int sum = nums[0];
+        for (int i = 1; i < nums.length; i++)
+            sum ^= nums[i];
+
+        return sum;
+    }
+}
+```
+
 [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 ```java
 /**
