@@ -596,6 +596,21 @@ class Solution {
 [268. Missing Number](https://leetcode.com/problems/missing-number/)
 ```java
 class Solution {
+    //pattern - xor; time - O(n), space - O(1)
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        for (int num : nums)
+            sum ^= num;        
+        
+        for (int i = 0; i <= nums.length; i++)
+            sum ^= i;
+        
+        return sum;
+    }    
+}
+```
+```java
+class Solution {
     //pattern - cyclic sort, time - O(n), space - O(1)
     public int missingNumber(int[] nums) {
         int index = 0;
