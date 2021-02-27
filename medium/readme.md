@@ -1297,6 +1297,30 @@ class Solution {
 }
 ```
 
+[260. Single Number III](https://leetcode.com/problems/single-number-iii/)
+```java
+class Solution {
+    //pattern - xor; time - O(n), space - O(1)
+    public int[] singleNumber(int[] nums) {
+        int diff = 0;
+        for (int num : nums)
+            diff ^= num;
+
+        // get the rightmost bit that is '1'
+        diff &= -diff;
+
+        int[] r = new int[2];
+        for (int num : nums) {
+            if ((num & diff) == 0) 
+                r[0] ^= num; //first group
+            else 
+                r[1] ^= num; //second group
+        }
+        return r;
+    }
+}
+```
+
 [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
 ```java
 class Solution {
