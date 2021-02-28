@@ -951,6 +951,35 @@ class Solution {
 }
 ```
 
+[657. Robot Return to Origin](https://leetcode.com/problems/robot-return-to-origin/)
+```java
+class Solution {
+    //time - O(n), space - O(1)
+    public boolean judgeCircle(String moves) {
+        int x = 0;
+        int y = 0;
+
+        for (char c : moves.toCharArray()){
+            switch (c){
+                case 'U' :
+                    y++;
+                    break;
+                case 'D' :
+                    y--;
+                    break;
+                case 'R' :
+                    x++;
+                    break;
+                case 'L' :
+                    x--;
+                    break;
+            }
+        }
+        return x == 0 && y == 0;
+    }
+}
+```
+
 [704. Binary Search](https://leetcode.com/problems/binary-search/)
 ```java
 class Solution {
