@@ -839,6 +839,20 @@ class Solution {
 }
 ```
 
+[561. Array Partition I](https://leetcode.com/problems/array-partition-i/)
+```java
+class Solution {
+    //pattern - sort; time - O(n), space - O(1)
+    public int arrayPairSum(int[] nums) {
+        Arrays.sort(nums);        
+        int sum = 0;
+        for (int i = 1; i < nums.length; i+=2)
+            sum += nums[i - 1];        
+        return sum;
+    }
+}
+```
+
 [581. Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/)
 ```java
 class Solution {
