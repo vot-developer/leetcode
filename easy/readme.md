@@ -1517,6 +1517,23 @@ class Solution {
     }
 }
 ```
+[1389. Create Target Array in the Given Order](https://leetcode.com/problems/create-target-array-in-the-given-order/)
+```java
+class Solution {
+    //pattern - dynamic array; time - O(n), space - O(n)
+    public int[] createTargetArray(int[] nums, int[] index) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i = 0; i < nums.length; i++)
+            list.add(index[i],nums[i]);
+        
+        int result [] = new int [list.size()];
+        for (int i = 0; i < list.size(); i++)
+            result[i] = list.get(i);
+        
+        return result;
+    }
+}
+```
 
 [1431. Kids With the Greatest Number of Candies](https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/)
 ```java
