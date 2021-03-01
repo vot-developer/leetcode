@@ -1371,6 +1371,30 @@ class Solution {
 }
 ```
 
+[347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+```java
+class Solution {
+    //pattern - top-k; time - O(n * log k), space - O(k)
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int i = 0; i < nums.length; i++)
+            freq.put(nums[i], freq.getOrDefault(nums[i], 0) + 1);
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.comparingInt(i -> freq.get(i)));
+        for (Map.Entry<Integer, Integer> e : freq.entrySet()) {
+            pq.offer(e.getKey());
+            if (pq.size() > k)
+                pq.poll();
+        }
+
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++)
+            result[i] = pq.poll();
+        return result;
+    }
+}
+```
+
 [384. Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/)
 ```java
 class Solution {
