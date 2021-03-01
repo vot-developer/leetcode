@@ -1257,6 +1257,28 @@ class Solution {
 }
 ```
 
+[215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+```java
+class Solution {
+    //pattern - top k elements; time - O(n * log k), space - O(k)
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue();
+
+        for (int i = 0; i < k; i++)
+            pq.offer(nums[i]);
+
+        for (int i = k; i < nums.length; i++){
+            if (pq.peek() < nums[i]){
+                pq.poll();
+                pq.offer(nums[i]);
+            }
+        }
+        
+        return pq.peek();
+    }
+}
+```
+
 [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
 ```java
 class Solution {
