@@ -1963,6 +1963,39 @@ class Solution {
 }
 ```
 
+[973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
+```java
+class Solution {
+    //pattern - top-k; time - O(n * log k), space - O(k)
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> dist(o2) - dist(o1)); //reverse
+
+        for (int i = 0; i < k; i++)
+            pq.offer(points[i]);
+
+        for (int i = k; i < points.length; i++){
+            if (dist(pq.peek()) > dist(points[i])){
+                pq.poll();
+                pq.offer(points[i]);
+            }
+        }
+                
+        int[][] result = new int[k][2];
+        for (int i = 0; i < k; i++){
+            int[] p = pq.poll();
+            result[i][0] = p[0];
+            result[i][1] = p[1];
+        }
+                
+        return result; 
+    }
+    
+    private int dist(int[] point){
+        return point[0]*point[0] + point[1]*point[1]; //ignore sqrt
+    }
+}
+```
+
 [986. Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/)
 ```java
 class Solution {
