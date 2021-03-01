@@ -1675,6 +1675,30 @@ class Solution {
 }
 ```
 
+[451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)
+```java
+class Solution {
+    //pattern - top-k; time - O(n * log n), space - O(n)
+    public String frequencySort(String str) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (int i = 0; i < str.length(); i++)
+            freq.put(str.charAt(i), freq.getOrDefault(str.charAt(i), 0) + 1);
+
+        PriorityQueue<Character> pq = new PriorityQueue<>(Comparator.comparingInt(i -> freq.get(i)).reversed());
+        for (Map.Entry<Character, Integer> e : freq.entrySet())
+            pq.offer(e.getKey());
+
+        char[] result = new char[str.length()];
+        for (int i = 0; i < result.length; ) {
+            char c = pq.poll();
+            for (int j = 0; j < freq.get(c); j++)
+                result[i++] = c;
+        }
+        return new String(result);
+    }
+}
+```
+
 [457. Circular Array Loop](https://leetcode.com/problems/circular-array-loop/)
 ```java
 class Solution {
