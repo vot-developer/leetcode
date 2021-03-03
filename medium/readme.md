@@ -1782,6 +1782,18 @@ class Solution {
 }
 ```
 
+[575. Distribute Candies](https://leetcode.com/problems/distribute-candies/submissions/)
+```java
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        Set<Integer> set = new HashSet();
+        for (int type : candyType)
+            set.add(type);
+        return Math.min(set.size(), candyType.length / 2);
+    }
+}
+```
+
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
 class MyCircularDeque {
