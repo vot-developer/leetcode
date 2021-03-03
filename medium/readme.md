@@ -1971,6 +1971,43 @@ class Solution {
 }
 ```
 
+[767. Reorganize String](https://leetcode.com/problems/reorganize-string/)
+```java
+class Solution {
+    //pattern - pq; time - O(n * log n), space - O(n)
+    public String reorganizeString(String str) {
+        int[] freq = new int[26];
+        for (char c : str.toCharArray())
+            freq[c - 'a']++;
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.<Integer>comparingInt(i -> freq[i]).reversed());
+        for (int i = 0; i < freq.length; i++)
+            if (freq[i] > 0)
+                pq.offer(i);
+
+        if ((str.length() & 1) == 0 && freq[pq.peek()] > str.length() / 2)
+            return "";
+        if (freq[pq.peek()] > 1 + str.length() / 2)
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+
+        int prev = -1;
+        while (!pq.isEmpty()) {
+            int i = pq.poll();
+            sb.append((char) (i + 'a'));
+            freq[i]--;
+
+            if (prev > -1 && freq[prev] > 0)
+                pq.offer(prev);
+            prev = i;
+        }
+
+        return sb.toString();
+    }
+}
+```
+
 [784. Letter Case Permutation](https://leetcode.com/problems/letter-case-permutation/)
 ```java
 class Solution {
