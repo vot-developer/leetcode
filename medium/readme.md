@@ -1890,6 +1890,45 @@ class MyCircularDeque {
     }
 ```
 
+[645. Set Mismatch](https://leetcode.com/problems/set-mismatch/)
+```java
+class Solution {
+    //pattern - xor; time - O(n), space - O(1)
+    public int[] findErrorNums(int[] nums) {
+        int xorDif = 0;
+        int sum = 0;
+
+        for (int i = 0; i < nums.length; i++){
+            xorDif ^= nums[i];
+            xorDif ^= i + 1;
+            sum += nums[i];
+        }
+
+        int lowestBit = xorDif & -xorDif;
+        int xorDiff1 = 0, xorDiff2 = 0;
+        for (int i = 0; i < nums.length; i++){
+            if ((nums[i] & lowestBit) == 0)
+                xorDiff1 ^= nums[i];
+            else
+                xorDiff2 ^= nums[i];
+
+            if (((i + 1) & lowestBit) == 0)
+                xorDiff1 ^= (i + 1);
+            else
+                xorDiff2 ^= (i + 1);
+        }
+
+        int n = nums.length;
+        int expectedSum = (n * (n + 1)) / 2;
+
+        if (expectedSum - sum > 0)
+            return new int[]{Math.min(xorDiff1, xorDiff2), Math.max(xorDiff1, xorDiff2)};
+
+        return new int[]{Math.max(xorDiff1, xorDiff2), Math.min(xorDiff1, xorDiff2)};
+    }
+}
+```
+
 [658. Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/)
 ```java
 class Solution {
