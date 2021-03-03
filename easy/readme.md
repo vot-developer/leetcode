@@ -853,6 +853,18 @@ class Solution {
 }
 ```
 
+[575. Distribute Candies](https://leetcode.com/problems/distribute-candies/submissions/)
+```java
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        Set<Integer> set = new HashSet();
+        for (int type : candyType)
+            set.add(type);
+        return Math.min(set.size(), candyType.length / 2);
+    }
+}
+```
+
 [581. Shortest Unsorted Continuous Subarray](https://leetcode.com/problems/shortest-unsorted-continuous-subarray/)
 ```java
 class Solution {
@@ -1477,6 +1489,27 @@ class Solution {
             }
         }
         return new String(result);
+    }
+}
+```
+
+[1165. Single-Row Keyboard](https://leetcode.com/problems/single-row-keyboard/)
+```java
+class Solution {
+    //time - O(n), space - O(n)
+    public int calculateTime(String keyboard, String word) {
+        int[] costs = new int[26];
+        for (int i = 0; i < costs.length; i++)
+            costs[keyboard.charAt(i) - 'a'] = i;
+        
+        int sum = 0;
+        int prev = 0;
+        for (char c : word.toCharArray()){
+            sum += Math.abs(costs[c - 'a'] - prev);
+            prev = costs[c - 'a'];
+        }
+            
+        return sum;            
     }
 }
 ```
