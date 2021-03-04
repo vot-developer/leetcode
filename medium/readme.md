@@ -1782,6 +1782,50 @@ class Solution {
 }
 ```
 
+[621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+```java
+class Solution {
+    //pattern - top-k(pq); time - O(n * log n), space - O(n)
+    public int leastInterval(char[] tasks, int k) {
+        if (k == 0)
+            return tasks.length;
+
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : tasks)
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        PriorityQueue<Character> pq = new PriorityQueue(Comparator.comparingInt(c -> freq.get(c)).reversed());
+        pq.addAll(freq.keySet());
+
+        int count = 0;
+        Queue<Character> queue = new LinkedList<>();
+        while (!freq.isEmpty()){
+            if (pq.size() != 0) {
+                Character c = pq.poll();
+                if (c != '\0') {
+                    freq.put(c, freq.get(c) - 1);
+                    if (freq.get(c) == 0) {
+                        freq.remove(c);
+                        queue.offer('\0');
+                    } else
+                        queue.offer(c);
+                }
+                else
+                    queue.offer('\0');
+            } else
+                queue.offer('\0');
+            
+            count++;
+            if (queue.size() > k)
+                if (queue.peek() != '\0')
+                    pq.offer(queue.poll());
+                else
+                    queue.poll();
+        }
+        return count;
+    }
+}
+```
+
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
 class MyCircularDeque {
