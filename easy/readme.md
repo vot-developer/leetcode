@@ -423,6 +423,50 @@ private Node top;
     }
 }
 ```
+
+[160. Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/)
+```java
+public class Solution {
+    //time - O(n + m), space - O(1)
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int sizeA = size(headA);
+        int sizeB = size(headB);
+        
+        ListNode nodeA = headA;
+        ListNode nodeB = headB;
+        
+        if (sizeA > sizeB)
+            nodeA = moveForward(nodeA, sizeA - sizeB);
+        else if (sizeB > sizeA)
+            nodeB = moveForward(nodeB, sizeB - sizeA);
+        
+        while (nodeA != nodeB){
+            nodeA = nodeA.next;
+            nodeB = nodeB.next;
+        }
+        
+        return nodeA;
+    }
+    
+    private int size(ListNode head){
+        int count = 0;
+        while (head != null){
+            head = head.next;
+            count++;
+        }
+        return count;
+    }
+    
+    private ListNode moveForward(ListNode head, int i){
+        while (i > 0){
+            head = head.next;
+            i--;
+        }
+        return head;
+    }
+}
+```
+
 [167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 ```java
 class Solution {
