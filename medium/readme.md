@@ -1785,6 +1785,27 @@ class Solution {
 [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
 ```java
 class Solution {
+    //time - O(n), space - O(R)
+    public int leastInterval(char[] tasks, int k) {
+        int[] freq = new int[26];
+        for (char c : tasks)
+            freq[c - 'A']++;
+
+        int max = 0;
+        for (int f : freq) 
+            max = Math.max(max, f);        
+        
+        int count = 0;
+        for (int f : freq)
+            if (f == max) 
+                count++;        
+        
+        return Math.max(tasks.length, (max - 1) * (k + 1) + count);
+    }
+}
+```
+```java
+class Solution {
     //pattern - top-k(pq); time - O(n * log n), space - O(n)
     public int leastInterval(char[] tasks, int k) {
         if (k == 0)
