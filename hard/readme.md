@@ -1,3 +1,34 @@
+[23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+```java
+class Solution {
+    //pattern - k-way-merge; time - O(n * log k), space - O(k)
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(l -> l.val));
+        for (ListNode node : lists)
+            if (node != null)
+                pq.offer(node);
+
+        ListNode result = null;
+        ListNode current = null;
+        while (!pq.isEmpty()){
+            ListNode node = pq.poll();
+            if (result == null){
+                result = node;
+                current = node;
+            } else {
+                current.next = node;
+                current = node;
+            }
+            if (node.next != null)
+                pq.offer(node.next);
+        }
+        return result;
+    }
+}
+```
+
 [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
 ```java
 /**
