@@ -1640,6 +1640,30 @@ class Solution {
 }
 ```
 
+[1332. Remove Palindromic Subsequences](https://leetcode.com/problems/remove-palindromic-subsequences/)
+```java
+class Solution {
+    //pattern - two pointers; time - O(n), space - O(1)
+    public int removePalindromeSub(String s) {
+        if (s == null || s.length() == 0)
+            return 0;
+        
+        if (isPalindrome(s))
+            return 1;
+        
+        return 2;
+    }
+    
+    private boolean isPalindrome(String s){
+        int end = s.length() - 1;
+        for (int start = 0; start < s.length() / 2; start++)
+            if (s.charAt(start) != s.charAt(end--))
+                return false;
+        return true;
+    }
+}
+```
+
 [1342. Number of Steps to Reduce a Number to Zero](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/)
 ```java
 class Solution {
