@@ -1390,6 +1390,33 @@ class Solution {
 }
 ```
 
+[340. Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)
+```java
+class Solution {
+    //pattern - sliding window; time - O(n), space - O(k)
+    public int lengthOfLongestSubstringKDistinct(String str, int k) {
+        int start = 0, maxLength = 0;
+        Map<Character, Integer> counts = new HashMap<>();
+
+        for (int end = 0; end < str.length(); end++) {
+            char c = str.charAt(end);
+            counts.put(c, counts.getOrDefault(c, 0) + 1);
+            while (counts.size() > k) {
+                char r = str.charAt(start++);
+                if (counts.get(r) > 1)
+                    counts.put(r, counts.get(r) - 1);
+                else
+                    counts.remove(r);
+            }
+
+            maxLength = Math.max(end - start + 1, maxLength);
+        }
+
+        return maxLength;
+    }
+}
+```
+
 [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
 ```java
 class Solution {
