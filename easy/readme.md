@@ -651,6 +651,33 @@ class Solution {
 }
 ```
 
+[246. Strobogrammatic Number](https://leetcode.com/problems/strobogrammatic-number/)
+```java
+class Solution {
+    //pattern - two pointers, time - O(n), space - O(R)
+    public boolean isStrobogrammatic(String num) {
+        int n = num.length() / 2;
+        Set<Character> set = new HashSet<>(Arrays.asList('1', '8', '6', '9', '0'));
+        int end = num.length() - 1;
+        for (int start = 0; start < n; start ++){
+            char s = num.charAt(start);
+            char e = num.charAt(end--);
+            if (!set.contains(s) || !set.contains(e))
+                return false;
+
+            if (s == '6' || s == '9'){
+                if ((s == '6' && e != '9') || (s == '9' && e != '6'))
+                    return false;
+            } else if (s != e)
+                return false;
+        }
+        if ((num.length() & 1) == 1)
+            return num.charAt(end) == '1' || num.charAt(end) == '8' || num.charAt(end) == '0';
+        return true;
+    }
+}
+```
+
 [268. Missing Number](https://leetcode.com/problems/missing-number/)
 ```java
 class Solution {
