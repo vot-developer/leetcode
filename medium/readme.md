@@ -1257,6 +1257,25 @@ class Solution {
 }
 ```
 
+[209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
+```java
+class Solution {
+    //pattern - sliding window; time - O(n), space - O(1)
+    public int minSubArrayLen(int target, int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int sum = 0, start = 0, end = 0;
+        while (end < nums.length) {
+            sum += nums[end++];
+            while (sum >= target) {
+                min = Math.min(end - start, min);
+                sum -= nums[start++];
+            }
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+}
+```
+
 [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 ```java
 class Solution {
