@@ -1441,6 +1441,39 @@ class Solution {
 }
 ```
 
+[373. Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/)
+```java
+class Solution {
+    //pattern - k-way-merge; time - O(n * log k), space - O(k)
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums1.length == 0 || nums2.length == 0 || k == 0)
+            return result;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.<int[]>comparingInt(i -> (i[0] + i[1])).reversed());
+        for (int i = 0; i < nums1.length && i < k; i++)
+            for (int j = 0; j < nums2.length && j < k; j++) {
+                if (pq.size() < k)
+                    pq.offer(new int[]{nums1[i], nums2[j]});
+                else {
+                    if (nums1[i] + nums2[j] > pq.peek()[0] + pq.peek()[1])
+                        break;
+                    else{
+                        pq.poll();
+                        pq.offer(new int[]{nums1[i], nums2[j]});
+                    }
+                }
+            }
+
+        for (int i = 0; i < k && !pq.isEmpty(); i++) {
+            int[] pair = pq.poll();
+            result.add(new ArrayList<>(Arrays.asList(pair[0], pair[1])));
+        }
+        return result;
+    }
+}
+```
+
 [384. Shuffle an Array](https://leetcode.com/problems/shuffle-an-array/)
 ```java
 class Solution {
