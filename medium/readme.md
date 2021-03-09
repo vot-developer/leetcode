@@ -1893,6 +1893,45 @@ class Solution {
 }
 ```
 
+[623. Add One Row to Tree](https://leetcode.com/problems/add-one-row-to-tree/)
+```java
+class Solution {
+    //pattern - bfs, time - O(n), space - O(n)
+    public TreeNode addOneRow(TreeNode root, int v, int d) {
+        if (d == 1) {
+            TreeNode node = new TreeNode(v);
+            node.left = root;
+            return node;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        for (int k = 1; k <= d - 2; k++) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+        }
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            
+            TreeNode prevLeft = node.left;
+            node.left = new TreeNode(v);
+            node.left.left = prevLeft;
+
+            TreeNode prevRight = node.right;
+            node.right = new TreeNode(v);
+            node.right.right = prevRight;
+        }
+        return root;
+    }
+}
+```
+
 [641. Design Circular Deque](https://leetcode.com/problems/design-circular-deque/)
 ```java
 class MyCircularDeque {
