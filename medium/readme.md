@@ -21,6 +21,21 @@ class Solution {
 }
 ```
 
+[12. Integer to Roman](https://leetcode.com/problems/integer-to-roman/)
+```java
+class Solution { 
+    //1 <= num <= 3999
+    private static final String[] thousands = {"", "M", "MM", "MMM"};
+    private static final String[] hundreds = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}; 
+    private static final String[] tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+    private static final String[] ones = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+    
+    public String intToRoman(int num) { 
+        return thousands[num / 1000] + hundreds[num % 1000 / 100] + tens[num % 100 / 10] + ones[num % 10];
+    }
+}
+```
+
 [15. 3Sum.](https://leetcode.com/problems/3sum/)
 ```java
 class Solution {
